@@ -1,0 +1,37 @@
+syntax = "proto3";
+option go_package = "./mclight";
+import "google/protobuf/duration.proto";
+
+package proto;
+
+service MCLightService {
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc Set (SetRequest) returns (SetResponse);
+  rpc Delete (DeleteRequest) returns (DeleteResponse);
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  bytes Value = 1;
+}
+
+message SetRequest {
+  string key = 1;
+  google.protobuf.Duration expiration = 2;
+  bytes value = 3;
+}
+
+message SetResponse {
+
+}
+
+message DeleteRequest{
+  string key = 1;
+}
+
+message DeleteResponse {
+
+}

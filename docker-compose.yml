@@ -1,0 +1,13 @@
+version: '2'
+services:
+  memcached:
+    container_name: some-memcached
+    image: launcher.gcr.io/google/memcached1
+    ports:
+      - '11211:11211'
+  application:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "44444:44444"
