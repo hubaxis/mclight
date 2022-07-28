@@ -22,13 +22,13 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	// global context for background worker not necessary here
-	_, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGTERM)
-
+	mc := cache.NewMemoryCache(ctx)
+	_ = mc // Just example how to initialize
 	cl, err := cache.New(cfg.MemcachedEndpoint)
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Port))
 	if err != nil {
